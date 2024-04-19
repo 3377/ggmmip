@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta name="keywords" content="免费的高精准IP定位查询">
+    <meta name="description" content="免费全球IP精准查询定位">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <title>IP数据查询</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.min.css"/>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mt-5 animate__animated animate__fadeIn">
+                    <div class="card-header text-center">
+                        <h2>IP数据查询</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <input type="text" id="ipInput" class="form-control" placeholder="请输入IP地址" onkeydown="if(event.keyCode==13) getIPInfo();" onclick="this.value=''" onblur="if(this.value=='') this.value=lastIP">
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" onclick="getIPInfo()"><i class="fas fa-search"></i> 查询</button>
+                            </div>
+                        </div>
+                        <div id="loading" class="text-center"><i class="fas fa-spinner fa-spin loading-icon"></i> 正在查询您的IP，请稍后！</div>
+                        <div id="result" class="mt-3"></div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    © <span id="year"></span> IP数据查询.
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.slim.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/scripts.min.js"></script>
+<!-- Cloudflare Pages Analytics --><script defer src='js/beacon.min.js' data-cf-beacon='{"token": "8e495b8649f249ee98ac25dd3fa083a0"}'></script><!-- Cloudflare Pages Analytics --></body>
+</html>
