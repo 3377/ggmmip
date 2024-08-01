@@ -13,6 +13,80 @@
     <title>IP 工具箱</title>
   </head>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f4f4f4;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+    <script>
+        function fetchIPInfo() {
+            var ip = $('#ipInput').val();
+            var url = "https://qifu-api.baidubce.com/ip/geo/v1/district?ip=" + ip;
+            
+            // 这里需要实现API请求，注意CORS策略问题
+            $.ajax({
+                url: url,
+                method: 'GET',
+                dataType: 'json',
+                headers: {
+                    'Accept': 'application/json',
+                    'User-Agent': 'YourBot/1.0', // 根据实际情况可能需要调整
+                },
+                success: function(data) {
+                    if (data.code === "Success") {
+                        displayResult(data);
+                    } else {
+                        $('#result').html('查询失败: ' + data.msg);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    $('#result').html('查询失败，无法连接到服务器。');
+                }
+            });
+        }
+
+        function displayResult(data) {
+            var info = data.data;
+            var content = "<strong>大陆:</strong> " + info.continent +
+                "<br><strong>国家:</strong> " + info.country +
+                "<br><strong>邮编:</strong> " + info.zipcode +
+                "<br><strong>时区:</strong> " + info.timezone +
+                "<br><strong>精度:</strong> " + info.accuracy +
+                "<br><strong>所有者:</strong> " + info.owner +
+                "<br><strong>ISP:</strong> " + info.isp +
+                "<br><strong>来源:</strong> " + info.source +
+                "<br><strong>地区码:</strong> " + info.areacode +
+                "<br><strong>行政码:</strong> " + info.adcode +
+                "<br><strong>ASN号:</strong> " + info.asnumber +
+                "<br><strong>纬度:</strong> " + info.lat +
+                "<br><strong>经度:</strong> " + info.lng +
+                "<br><strong>半径:</strong> " + info.radius +
+                "<br><strong>省份:</strong> " + info.prov +
+                "<br><strong>城市:</strong> " + info.city +
+                "<br><strong>区县:</strong> " + info.district;
+            $('#result').html(content);
+        }
+    </script>
+
+
+
   <style type="text/css">
     [id$="ipv6"],
     #myip-la {
@@ -110,49 +184,13 @@
     </style>
     <div class="header">IP 工具箱</div>
     <div class="title">🕵️ IP 查询</div>
-    <div class="search-box">
-      <form onsubmit="return search()">
-        <input
-          type="text"
-          id="searchInput"
-          placeholder="输入 IP 查询，支持 IPV4 和 IPV6"
-        />
-        <button type="submit">查询</button>
-      </form>
+  <div class="search-box">
+  <input type="text" id="ipInput" placeholder="请输入IP地址">
+    <button onclick="fetchIPInfo()">查询</button>
     </div>
-    <div class="container">
-      <div class="box" id="search" style="display: none">
-        <div>
-          运营商：
-          <span id="search-organization">查询中...</span>
-        </div>
-        <div>
-          国家/地区代码：
-          <span id="search-country-code">查询中...</span>
-        </div>
-        <div>
-          国家名称：
-          <span id="search-country">查询中...</span>
-        </div>
-        <div>
-          地区名称：
-          <span id="search-region">查询中...</span>
-        </div>
-        <div>
-          城市名称：
-          <span id="search-city">查询中...</span>
-        </div>
-        <div>
-          经纬度：
-          <span id="search-tude">查询中...</span>
-        </div>
-        <div>
-          时区：
-          <span id="search-timezone">查询中...</span>
-        </div>
-        <div>数据来源：ip.sb</div>
-      </div>
-    </div>
+    <div id="result" class="box-info">查询结果会显示在这里。</div>
+
+
     <div class="title">
       🕵️ IP 信息 (您的网络是 <span id="youxian"></span>优先)
     </div>
