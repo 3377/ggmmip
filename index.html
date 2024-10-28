@@ -18,58 +18,136 @@
     />
     <style>
       body {
-        background-color: #f0f2f5;
+        background-color: #f8f9fa;
         font-family: "Roboto", sans-serif;
-        color: #333;
+        color: #2c3e50;
       }
+
       .header {
-        background-color: #4a90e2;
+        background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
         color: white;
-        padding: 30px 0;
+        padding: 40px 0;
         margin-bottom: 40px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
       }
+
+      .header h1 {
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
       .card {
         border: none;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        transition: 0.3s;
-        margin-bottom: 30px;
+        border-radius: 15px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        background: white;
+        overflow: hidden;
       }
+
       .card:hover {
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
       }
+
       .card-header {
-        background-color: #e9ecef;
-        font-weight: bold;
-        border-bottom: none;
-        padding: 15px 20px;
-      }
-      .card-body {
-        padding: 20px;
-      }
-      .btn-primary {
-        background-color: #4a90e2;
-        border-color: #4a90e2;
-        padding: 10px 20px;
-      }
-      .btn-primary:hover {
-        background-color: #3a7bc8;
-        border-color: #3a7bc8;
-      }
-      h2 {
-        color: #4a90e2;
-        margin-bottom: 25px;
+        background: linear-gradient(to right, #f8f9fa, #e9ecef);
         font-weight: 600;
+        border-bottom: none;
+        padding: 20px;
+        color: #2c3e50;
       }
+
+      .card-body {
+        padding: 25px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+        border: none;
+        padding: 12px 25px;
+        border-radius: 8px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+      }
+
+      h2 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-weight: 600;
+        font-size: 1.8rem;
+      }
+
       .section-icon {
-        margin-right: 10px;
+        margin-right: 12px;
         color: #4a90e2;
       }
+
       #result {
-        background-color: #e9ecef;
+        background-color: #f8f9fa;
+        padding: 20px;
+        border-radius: 10px;
+        border-left: 4px solid #4a90e2;
+      }
+
+      .input-group {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+
+      .input-group input {
+        border: none;
         padding: 15px;
-        border-radius: 5px;
+        font-size: 1rem;
+      }
+
+      .status-badge {
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      .status-success {
+        background-color: #e8f5e9;
+        color: #2e7d32;
+      }
+
+      .status-error {
+        background-color: #ffebee;
+        color: #c62828;
+      }
+
+      .ip-info p {
+        margin-bottom: 15px;
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #f8f9fa;
+      }
+
+      .ip-info i {
+        width: 25px;
+        color: #4a90e2;
+      }
+
+      @media (max-width: 768px) {
+        .header {
+          padding: 30px 0;
+        }
+
+        .header h1 {
+          font-size: 2rem;
+        }
+
+        .card {
+          margin-bottom: 20px;
+        }
       }
     </style>
   </head>
@@ -105,7 +183,7 @@
           <div class="col-md-6 mb-4">
             <div class="card h-100">
               <div class="card-header">
-                <i class="fas fa-map-marker-alt mr-2"></i> 国内环境
+                <i class="fas fa-map-marker-alt mr-2"></i> 国外环境
               </div>
               <div class="card-body">
                 <p>
@@ -122,7 +200,7 @@
           <div class="col-md-6 mb-4">
             <div class="card h-100">
               <div class="card-header">
-                <i class="fas fa-globe-americas mr-2"></i> 国外环境
+                <i class="fas fa-globe-americas mr-2"></i> 国内环境
               </div>
               <div class="card-body">
                 <p>
@@ -184,7 +262,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
       function fetchIPInfo() {
-        const ip = document.getElementById("ipInput").value || "8.8.8.8"; // 使用Google的DNS服务器IP作为默认值
+        const ip = document.getElementById("ipInput").value || "8.8.8.8";
         fetch(`https://qifu-api.baidubce.com/ip/geo/v1/district?ip=${ip}`)
           .then((response) => response.json())
           .then((data) => {
@@ -202,55 +280,106 @@
           });
       }
 
+      // 修改获取本地IP的方法
       function getLocalIP() {
-        const script = document.createElement("script");
-        script.src = "https://ipv4_cm.itdog.cn?callback=handleLocalIP";
-        document.body.appendChild(script);
-      }
-
-      function handleLocalIP(data) {
-        document.getElementById("ct-ipv4").textContent = data.ip;
-        document.getElementById("ct-ipv6").textContent = "无法获取";
-      }
-
-      function getForeignIP() {
-        fetch("https://api-ipv4.ip.sb/ip", { mode: "no-cors" })
-          .then(() => fetch("https://api.ipify.org?format=json"))
+        // 使用更可靠的API获取IPv4
+        fetch("https://forge.speedtest.cn/api/location/info")
           .then((response) => response.json())
           .then((data) => {
-            document.getElementById("cf-ipv4").textContent = data.ip;
-            document.getElementById("cf-ipv6").textContent = "无法获取";
+            document.getElementById("ct-ipv4").textContent = data.ip;
           })
-          .catch((error) => {
-            document.getElementById("cf-ipv4").textContent = "获取失败";
-            document.getElementById("cf-ipv6").textContent = "获取失败";
-            console.error("Error:", error);
+          .catch(() => {
+            // 备用API
+            const script = document.createElement("script");
+            script.src =
+              "https://ipv4.icanhazip.com/?callback=handleLocalIPBackup";
+            document.body.appendChild(script);
+          });
+
+        // 获取IPv6
+        fetch("https://speed.neu6.edu.cn/getIP.php")
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById("ct-ipv6").textContent =
+              data.trim() || "不支持IPv6";
+          })
+          .catch(() => {
+            document.getElementById("ct-ipv6").textContent = "不支持IPv6";
           });
       }
 
-      function testConnectivity(url, flagId, msId) {
-        const img = new Image();
-        const startTime = new Date().getTime();
-        img.onload = function () {
-          const endTime = new Date().getTime();
-          document.getElementById(flagId).textContent = "连接成功";
-          document.getElementById(msId).textContent = endTime - startTime;
-        };
-        img.onerror = function () {
-          document.getElementById(flagId).textContent = "连接失败";
-          document.getElementById(msId).textContent = "0";
-        };
-        img.src = url + "?t=" + startTime;
+      // 备用处理函数
+      function handleLocalIPBackup(data) {
+        document.getElementById("ct-ipv4").textContent = data.ip || "获取失败";
       }
 
-      // 测试连接性
+      // 修改获取国外IP的方法
+      function getForeignIP() {
+        // 获取IPv4，使用多个备用API
+        Promise.any([
+          fetch("https://api.ipify.org?format=json").then((r) => r.json()),
+          fetch("https://api.ip.sb/jsonip").then((r) => r.json()),
+          fetch("https://httpbin.org/ip").then((r) =>
+            r.json().then((data) => ({ ip: data.origin }))
+          ),
+        ])
+          .then((data) => {
+            document.getElementById("cf-ipv4").textContent = data.ip;
+          })
+          .catch(() => {
+            document.getElementById("cf-ipv4").textContent = "获取失败";
+          });
+
+        // 获取IPv6
+        fetch("https://api6.ipify.org?format=json")
+          .then((response) => response.json())
+          .then((data) => {
+            document.getElementById("cf-ipv6").textContent = data.ip;
+          })
+          .catch(() => {
+            document.getElementById("cf-ipv6").textContent = "不支持IPv6";
+          });
+      }
+
+      // 修改连接性测试方法
+      function testConnectivity(url, flagId, msId) {
+        const startTime = new Date().getTime();
+
+        // 使用 fetch 替代 Image 对象
+        fetch(url, {
+          mode: "no-cors",
+          headers: {
+            Accept: "image/favicon",
+            "Cache-Control": "no-cache",
+          },
+        })
+          .then(() => {
+            const endTime = new Date().getTime();
+            document.getElementById(
+              flagId
+            ).innerHTML = `<span class="status-badge status-success">
+                <i class="fas fa-check-circle"></i> 连接成功
+               </span>`;
+            document.getElementById(msId).textContent = endTime - startTime;
+          })
+          .catch(() => {
+            document.getElementById(
+              flagId
+            ).innerHTML = `<span class="status-badge status-error">
+                <i class="fas fa-times-circle"></i> 连接失败
+               </span>`;
+            document.getElementById(msId).textContent = "0";
+          });
+      }
+
+      // 修改测试连接性的URL
       testConnectivity(
-        "https://www.google.com/favicon.ico",
+        "https://www.google.com/generate_204",
         "google-flag",
         "google-ms"
       );
       testConnectivity(
-        "https://www.cloudflare.com/favicon.ico",
+        "https://www.cloudflare.com/cdn-cgi/trace",
         "cf-flag",
         "cf-ms"
       );
